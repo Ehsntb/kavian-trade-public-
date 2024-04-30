@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>تماس با ما</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico" />
+    <!-- Vendor CSS -->
+    <link href="/css/vendor/bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/vendor/vendor.min.css" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="/css/style-food.css" rel="stylesheet" />
+    <link href="/css/style-rtl.css" rel="stylesheet" />
+    <!-- Custom font -->
+    <link href="/fonts/icomoon/icons.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&nbsp;Condensed:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .required-star {
+        color: red;
+        font-size: 12px; /* Adjust font size as needed */
+        margin-left: 5px; /* Adjust margin as needed */
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('header.ejs') -%>
+    <div class="holder">
+      <div class="container">
+        <div class="row vert-margin">
+          <div class="col-sm-9">
+            <div class="title-wrap">
+              <h2 class="h1-style">با ما در ارتباط باشید</h2>
+              <div>
+                از طریق فرم زیر می توناید درخواست خود را ثبت کرده<br />
+                پس از بررسی درخواست توسط کارشناسان با شما تماس حاصل می گردد.
+              </div>
+            </div>
+            <form
+              action="/contact_us"
+              method="post"
+              data-toggle="validator"
+              class="contact-form"
+              id="contactForm"
+            >
+              <div class="form-confirm">
+                <div class="success-confirm">
+                  درخواست شما با موفقیت ثبت شد.<br />در اسرع وقت درخواست شما
+                  بررسی می شود و با شما تماس حاصل می شود.
+                </div>
+                <div class="error-confirm">
+                  درخواست شما ثبت نشد.<br />لطفا دوباره درخواست خود را ارسال
+                  کنید.
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row vert-margin-middle">
+                  <div class="col-lg">
+                    <input
+                      type="text"
+                      name="name"
+                      class="form-control form-control--sm"
+                      placeholder="نام و نام خانوادگی *"
+                      required
+                    />
+                  </div>
+                  <div class="col-lg">
+                    <input
+                      type="text"
+                      name="coName"
+                      class="form-control form-control--sm"
+                      placeholder="نام شرکت"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row vert-margin-middle">
+                  <div class="col-lg">
+                    <input
+                      type="text"
+                      name="email"
+                      class="form-control form-control--sm"
+                      placeholder="ایمیل *"
+                      required
+                    />
+                  </div>
+                  <div class="col-lg">
+                    <input
+                      type="text"
+                      name="phone"
+                      class="form-control form-control--sm"
+                      placeholder="شماره تماس"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row vert-margin-middle">
+                  <div class="col-lg">
+                    <input
+                      type="text"
+                      name="subject"
+                      class="form-control form-control--sm"
+                      placeholder="موضوع پیام"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <textarea
+                  class="form-control form-control--sm textarea--height-200"
+                  name="message"
+                  placeholder="متن پیام *"
+                  required
+                ></textarea>
+              </div>
+              <button class="btn" type="submit">ثبت درخواست</button>
+            </form>
+          </div>
+          <div class="col-sm-9">
+            <div class="contact-map">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d49928.06735232406!2d44.90836866932258!3d38.54519543082245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40116a8584603073%3A0x4da1db9bbdbb884c!2sKhoy%2C%20West%20Azerbaijan%20Province%2C%20Iran!5e0!3m2!1sen!2s!4v1713969057498!5m2!1sen!2s"
+                width="600"
+                height="450"
+                style="border: 0"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="holder">
+      <div class="container">
+        <div class="title-wrap text-center">
+          <h2 class="h1-style">اطلاعات تماس</h2>
+          <p class="h-sub maxW-825">
+            Nor again is there anyone who loves or pursues or desires to obtain
+            pain of itself, because it is pain, but because occasionally in
+            which toil and pain
+          </p>
+        </div>
+        <div class="text-icn-blocks-row">
+          <div class="text-icn-block-hor">
+            <div class="icn">
+              <i class="icon-location"></i>
+            </div>
+            <div class="text">
+              <h4>آدرس:</h4>
+              <p>خوی-خیابان انقلاب نبش آزادی</p>
+            </div>
+          </div>
+          <div class="text-icn-block-hor">
+            <div class="icn">
+              <i class="icon-phone"></i>
+            </div>
+            <div class="text">
+              <h4>شماره تماس:</h4>
+              <p>+3 800 555 35 35<br />+3 800 555 35 35</p>
+            </div>
+          </div>
+          <div class="text-icn-block-hor">
+            <div class="icn">
+              <i class="icon-info"></i>
+            </div>
+            <div class="text">
+              <h4>تایم کاری شرکت:</h4>
+              <p>
+                شنبه تا چهارشنبه<br />
+                ساعت 8 صبح تا 4 بعد از ظهر
+              </p>
+            </div>
+          </div>
+          <div class="text-icn-block-hor">
+            <div class="icn">
+              <i class="icon-call-center"></i>
+            </div>
+            <div class="text">
+              <h4>پشتیبانی:</h4>
+              <p>+3 800 555 35 35<br />+3 800 555 35 35</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%- include('footer.ejs') -%>
+  </body>
+</html>

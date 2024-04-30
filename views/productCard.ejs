@@ -1,0 +1,29 @@
+<div
+  class="prd prd--style2 prd-labels--max prd-labels-shadow prd-w-xs"
+  style="background-color: #f2f5f7; border-radius: 5px"
+>
+  <div class="prd-img-area">
+    <a
+      href="/product/<%= product.short_link %>"
+      class="prd-img image-hover-scale image-container"
+    >
+      <img
+        src="/images/productsImages/<%= product.gallery[0].image_url %>"
+        data-src="/<%= product.gallery[0].image_url %>"
+        alt="<%= product.title %>"
+        class="js-prd-img fade-up ls-is-cached lazyloaded imgSizeCustom1"
+        style="padding-top: 2%"
+      />
+    </a>
+  </div>
+  <div class="prd-info">
+    <div class="prd-info-wrap">
+      <div class="prd-tag"><a href="#"><%= product.category %></a></div>
+      <h2 class="prd-title" style="padding-bottom: 20px">
+        <a href="/product/<%= product.short_link %>"><%= product.title %></a>
+      </h2>
+    </div>
+
+    <!-- /Products Grid -->
+  </div>
+</div>
