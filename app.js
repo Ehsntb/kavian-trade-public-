@@ -43,4 +43,3 @@ app
 //   Please note
 // 1- Please set project port to above port number
 // 2- Upload your project file to project directory
-// 3- Press start button and select start script list in package.json
