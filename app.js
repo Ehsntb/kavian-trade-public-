@@ -10,27 +10,21 @@ const bodyParser = require('body-parser');
 const app = express();
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-// Middlewares
 app.use(express.static('views'));
 app.use(cors());
 app.use(express.json());
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Route Imports
-const adminLoginRouter = require('./routes/adminRoutes');
-// const authenticationRouter = require('./routes/authenticationRoutes');
+const adminRouter = require('./routes/adminRoutes');
 const categoryRouter = require('./routes/categoryRoutes');
 const productRouter = require('./routes/productRoutes');
 const contactustRouter = require('./routes/contactusRoutes');
 
-// app.get('/', (req, res) => {
-//   res.render('index');
-// });
-
 // Routes
-app.use(adminLoginRouter);
-// app.use(authenticationRouter);
+app.use(adminRouter);
 app.use(categoryRouter);
 app.use(productRouter);
 app.use(contactustRouter);
@@ -42,7 +36,3 @@ app
       console.log(`Server is listening at http://localhost:${process.env.PORT}`) // 8983 in server
   )
   .on('error', (error) => console.error(error));
-
-//   Please note
-// 1- Please set project port to above port number
-// 2- Upload your project file to project directory
