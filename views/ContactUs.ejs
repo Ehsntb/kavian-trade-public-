@@ -32,6 +32,34 @@
     </style>
   </head>
   <body>
+    <script>
+      function submitForm() {
+        const formData = {
+          name: document.getElementByName('name').value,
+          coName: document.getElementsByName('coName').value,
+          email: document.getElementsByName('email').value,
+          phone: document.getElementsByName('phone').value,
+          subject: document.getElementsByName('subject').value,
+          message: document.getElementsByName('message').value,
+        };
+
+        fetch('/contact_us', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        })
+          .then((response) => {
+            // Handle response
+            console.log(response);
+          })
+          .catch((error) => {
+            // Handle error
+            console.error('Error:', error);
+          });
+      }
+    </script>
     <%- include('header.ejs') -%>
     <div class="holder">
       <div class="container">
@@ -44,13 +72,7 @@
                 پس از بررسی درخواست توسط کارشناسان با شما تماس حاصل می گردد.
               </div>
             </div>
-            <form
-              action="/contact_us"
-              method="post"
-              data-toggle="validator"
-              class="contact-form"
-              id="contactForm"
-            >
+            <form action="/contact_us" method="POST">
               <div class="form-confirm">
                 <div class="success-confirm">
                   درخواست شما با موفقیت ثبت شد.<br />در اسرع وقت درخواست شما
@@ -123,7 +145,9 @@
                   required
                 ></textarea>
               </div>
-              <button class="btn" type="submit">ثبت درخواست</button>
+              <button class="btn" type="submit" onclick="submitForm()">
+                ثبت درخواست
+              </button>
             </form>
           </div>
           <div class="col-sm-9">

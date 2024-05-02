@@ -83,6 +83,48 @@ module.exports = {
       throw err; // Re-throw the error for proper handling
     }
   },
+  getProductById: async (productID) => {
+    try {
+      const [products] = await pool.promise().query(
+        `SELECT
+        p.title,
+        p.short_description,
+        p.long_description,
+        p.short_link,
+        p.rial_price,
+        p.doller_price,
+        p.discount,
+        p.grade,
+        p.location,
+        c.title as category,
+        CONCAT('[', GROUP_CONCAT(CONCAT('{ "image_url": "', pg.image_url, '", "is_main": ', pg.is_main, '}')), ']') AS gallery
+        FROM
+        products AS p
+      LEFT JOIN
+        product_gallery AS pg ON p.id = pg.product_id
+				JOIN
+				categories AS c ON c.id = p.category_id
+      WHERE
+        p.short_link = ?
+      GROUP BY
+        p.id;`,
+        productID
+      );
+      var result = products.map((row) => ({
+        title: row.title,
+        short_description: row.short_description,
+        long_description: row.long_description,
+        short_link: row.short_link,
+        location: row.location,
+        category: row.category,
+        gallery: JSON.parse(row.gallery),
+      }))[0];
+      return result;
+    } catch (err) {
+      console.error(err);
+      throw err; // Re-throw the error for proper handling
+    }
+  },
   getProductByCategoryShortLink: async (categoryshortlink) => {
     try {
       const [products] = await pool.promise().query(
@@ -119,6 +161,131 @@ module.exports = {
     } catch (err) {
       console.error(err);
       throw err; // Re-throw the error for proper handling
+    }
+  },
+  deleteProductsById: async (productID) => {
+    try {
+      const result = await pool
+        .promise()
+        .query('DELETE FROM products WHERE id = ?', productID);
+
+      console.log(result);
+      return result;
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  },
+  updateProductById: async (
+    title,
+    short_description,
+    long_description,
+    short_link,
+    rial_price,
+    doller_price,
+    discount,
+    grade,
+    location,
+    is_special,
+    is_active,
+    category_id,
+    productID
+  ) => {
+    try {
+      const result = await pool.promise().query(
+        `
+      UPDATE products
+      SET
+        title = ?,
+        short_description = ?,
+        long_description = ?,
+        short_link = ?,
+        rial_price = ?,
+        doller_price = ?,
+        discount = ?,
+        grade = ?,
+        location = ?,
+        is_special = ?,
+        is_active = ?,
+        category_id = ?
+      WHERE
+        id = ?
+      `,
+        title,
+        short_description,
+        long_description,
+        short_link,
+        rial_price,
+        doller_price,
+        discount,
+        grade,
+        location,
+        is_special,
+        is_active,
+        category_id,
+        productID
+      );
+      console.log(result);
+      return result;
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  },
+  insertProduct: async (
+    title,
+    short_description,
+    long_description,
+    short_link,
+    rial_price,
+    doller_price,
+    discount,
+    grade,
+    location,
+    is_special,
+    is_active,
+    category_id
+  ) => {
+    try {
+      const result = await pool.promise().query(
+        `
+      INSERT INTO
+       products
+      (
+        title,
+        short_description,
+        long_description,
+        short_link,
+        rial_price,
+        doller_price,
+        discount,
+        grade,
+        location,
+        is_special,
+        is_active,
+        category_id
+      )
+      VALUES
+      ( ?, ? ,? ,?, ? ,? ,?, ? ,? ,?, ? ,? )
+      `,
+        title,
+        short_description,
+        long_description,
+        short_link,
+        rial_price,
+        doller_price,
+        discount,
+        grade,
+        location,
+        is_special,
+        is_active,
+        category_id
+      );
+      console.log(result);
+      return result;
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Internal Server Error' });
     }
   },
 };

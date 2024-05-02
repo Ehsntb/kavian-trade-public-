@@ -8,12 +8,7 @@ module.exports = {
         .promise()
         .query(
           'INSERT INTO `contact_us` (`name`, `company`, `email`, `phone`, `subject`, `message`) VALUES (?, ?, ?, ?, ?, ?)',
-          name,
-          coName,
-          email,
-          phone,
-          subject,
-          message
+          [name, coName, email, phone, subject, message]
         );
       return results; // Assuming there's only one user with the username
     } catch (err) {

@@ -4,6 +4,7 @@ require('dotenv').config();
 const cors = require('cors');
 const path = require('path');
 const ejs = require('ejs');
+const bodyParser = require('body-parser');
 
 // Let's refer to Express as app
 const app = express();
@@ -13,9 +14,11 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static('views'));
 app.use(cors());
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // Route Imports
-const adminLoginRouter = require('./routes/adminLoginRoutes');
+const adminLoginRouter = require('./routes/adminRoutes');
 // const authenticationRouter = require('./routes/authenticationRoutes');
 const categoryRouter = require('./routes/categoryRoutes');
 const productRouter = require('./routes/productRoutes');

@@ -19,27 +19,26 @@ module.exports = {
   },
   submitContact: async (req, res) => {
     try {
-      const { name, coName, email, phone, subject, message } = req.body;
+      // const { coName, email, phone, subject, message } = req.body;
+      const data = req.body;
+      console.log(data);
       const success = await contactusModel.createContact(
-        name,
-        coName,
-        email,
-        phone,
-        subject,
-        message
+        data.name,
+        data.coName,
+        data.email,
+        data.phone,
+        data.subject,
+        data.message
       );
       if (success) {
-        // Redirect to a success page or display a confirmation message
-        res.render('contact_success', {
-          message: 'Your message has been submitted!',
-        });
+        res.status(
+          200,
+          json({
+            message: 'Your message has been submitted!',
+          })
+        );
       } else {
-        // Handle unsuccessful insert (log the error and display an error message)
-        console.error('Failed to submit contact message');
-        res.render('contact_error', {
-          message: 'An error occurred. Please try again later.',
-          categories: categories,
-        });
+        res.status(500).json({ message: 'Failed to submit contact message' });
       }
     } catch (error) {
       console.error(error);
