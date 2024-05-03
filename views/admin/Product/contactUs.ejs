@@ -1,0 +1,45 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div
+          class="card-header pb-0 d-flex justify-content-between align-items-center border-bottom">
+          <h2 class="content-title card-title">لیست درخواست ها</h2>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-hover text-center table-bordered">
+              <thead>
+                <tr class="text-center">
+                  <th class="col">آی دی</th>
+                  <th class="col">نام</th>
+                  <th class="col">نام شرکت</th>
+                  <th class="col">ایمیل</th>
+                  <th class="col">شماره تماس</th>
+                  <th class="col">موضوع</th>
+                  <th class="col">متن درخواست</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% results.forEach(function(result){ %>
+                <tr class="text-center align-middle">
+                  <th><%= result.id %></th>
+                  <th><%= result.name %></th>
+                  <th><%= result.company %></th>
+                  <th><%= result.email %></th>
+                  <th><%= result.phone %></th>
+                  <th><%= result.subject %></th>
+                  <th><%= result.message %></th>
+                </tr>
+                <% }); %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card-footer"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Container-fluid Ends-->
