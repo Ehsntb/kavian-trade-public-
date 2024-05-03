@@ -1,0 +1,186 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div
+          class="card-header pb-0 d-flex justify-content-between align-items-center border-bottom">
+          <h2 class="content-title card-title">ایجاد محصول جدید</h2>
+          <a
+            href="{{ route('products.create') }}"
+            class="btn btn-success me-auto"
+            ><i class="fa fa-plus me-2"></i>محصول جدید</a
+          >
+        </div>
+        <div class="card-body">
+          <form
+            method="POST"
+            action="{{ route('products.store') }}"
+            enctype="multipart/form-data">
+            <div class="row">
+              <div class="col-lg-4">
+                <label
+                  for="title"
+                  class="form-label"
+                  >عنوان محصول *</label
+                >
+                <input
+                  id="title"
+                  type="text"
+                  class="form-control"
+                  name="title" />
+              </div>
+
+              <div class="col-lg-4">
+                <label
+                  for="serial"
+                  class="form-label"
+                  >سریال</label
+                >
+                <input
+                  id="serial"
+                  type="text"
+                  class="form-control"
+                  name="serial" />
+              </div>
+
+              <div class="col-lg-4">
+                <label
+                  for="image"
+                  class="form-label"
+                  >آپلود تصویر شاخص *</label
+                >
+                <input
+                  id="image"
+                  type="file"
+                  class="form-control"
+                  name="image" />
+              </div>
+
+              <div class="col-lg-12">
+                <label
+                  for="my-description"
+                  class="form-label"
+                  >توضیحات محصول *</label
+                >
+                <textarea
+                  id="my-description"
+                  class="form-control"
+                  name="description"></textarea>
+              </div>
+
+              <div class="col-lg-12">
+                <label class="form-label">آپلود تصاویر گالری</label>
+                <div id="galleryContainer">
+                  <div class="row mb-2">
+                    <div class="col-md-10">
+                      <input
+                        type="file"
+                        class="form-control"
+                        name="gallery_images[]" />
+                    </div>
+                    <div class="col-md-2">
+                      <button
+                        type="button"
+                        class="btn btn-danger btn-sm removeImage">
+                        X
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  class="btn btn-secondary mt-2"
+                  id="addImage">
+                  اضافه کردن تصویر
+                </button>
+              </div>
+
+              <div class="col-lg-4">
+                <label
+                  for="slug"
+                  class="form-label"
+                  >اسلاگ جهت نمایش در URL (اجبارا با عنوان محصول برابر باشد!)
+                  *</label
+                >
+                <input
+                  id="slug"
+                  type="text"
+                  class="form-control"
+                  name="slug" />
+              </div>
+
+              <div class="col-lg-12">
+                <label class="form-label">دسته ها *</label>
+                <select
+                  id="categories"
+                  class="form-control"
+                  name="categories[]"
+                  multiple>
+                  <% for (category of categories){ %>
+                  <option value="<%= category.id %>">
+                    <%= category.title %>
+                  </option>
+                  <% } %>
+                </select>
+              </div>
+
+              <hr />
+
+              <hr />
+
+              <hr />
+
+              <div class="col-lg-12 mt-3">
+                <button
+                  type="submit"
+                  class="btn btn-primary">
+                  ثبت محصول
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="card-footer"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Container-fluid Ends-->
+
+<script>
+  $('#categories').select2({
+    placeholder: 'دسته مورد نظر را انتخاب کنید',
+  });
+</script>
+
+<script>
+  $(document).ready(function () {
+    $('#addImage').click(function () {
+      let imageDiv = $('<div>').addClass('row mb-2');
+
+      let imageInputDiv = $('<div>').addClass('col-md-10');
+      let imageInput = $('<input>')
+        .attr({
+          type: 'file',
+          name: 'gallery_images[]',
+        })
+        .addClass('form-control');
+      imageInputDiv.append(imageInput);
+
+      let deleteButtonDiv = $('<div>').addClass('col-md-2');
+      let deleteButton = $('<button>')
+        .addClass('btn btn-danger btn-sm removeImage')
+        .text('X');
+      deleteButton.on('click', function (e) {
+        e.preventDefault();
+        imageDiv.remove();
+      });
+      deleteButtonDiv.append(deleteButton);
+
+      imageDiv.append(imageInputDiv, deleteButtonDiv);
+
+      $('#galleryContainer').append(imageDiv);
+    });
+  });
+</script>

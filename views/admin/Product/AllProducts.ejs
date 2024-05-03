@@ -1,0 +1,75 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div
+          class="card-header pb-0 d-flex justify-content-between align-items-center border-bottom">
+          <h2 class="content-title card-title">لیست محصولات</h2>
+          <a
+            href="{{ route('products.create') }}"
+            class="btn btn-success me-auto"
+            ><i class="fa fa-plus me-2"></i>ایجاد محصول جدید</a
+          >
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-hover text-center table-bordered">
+              <thead>
+                <tr class="text-center">
+                  <th>آی دی محصول</th>
+
+                  <th class="col">عنوان محصول</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% products.forEach(function(product){ %>
+                <tr class="text-center align-middle">
+                  <th><%= product.title %></th>
+                  <th></th>
+                  <th><%= product.short_description %></th>
+                  <th><%= product.long_description %></th>
+                  <th><%= product.short_link %></th>
+                  <th><%= product.location %></th>
+                  <th><%= product.category_name %></th>
+                  <th>
+                    <img
+                      src="<%= product.image_url %>"
+                      alt="" />
+                  </th>
+
+                  <th class="">
+                    <div class="d-flex justify-content-center">
+                      <div class="">
+                        <a
+                          href="{{ route('products.edit' , ['product'=> $product->id]) }}"
+                          class="btn btn-sm btn-success"
+                          >ویرایش</a
+                        >
+                      </div>
+                      <div class="me-2">
+                        <form
+                          method="POST"
+                          action="{{ route('products.destroy' , ['product'=> $product->id]) }}">
+                         
+                          <button
+                            type="submit"
+                            class="btn btn-sm btn-danger ms-1">
+                            حذف
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                  </th>
+                </tr>
+                <% }); %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card-footer"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Container-fluid Ends-->
