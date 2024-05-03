@@ -1,5 +1,6 @@
 const adminLogin = require('../models/adminLoginModel');
 const productModel = require('../models/productModel');
+const contactusModel = require('../models/contactusModel');
 
 module.exports = {
   authAdmin: async (req, res) => {
@@ -94,6 +95,23 @@ module.exports = {
     } catch (err) {
       console.log(err);
       res.status(500).json({ message: err });
+    }
+  },
+  getAllContactUs: async (req, res) => {
+    try {
+      const contactUs = await contactusModel.getAllContactUs();
+      // console.log('categories:', categories);
+      if (contactUs.length < 1) {
+        return res.status(404).render('404', { contactUs: ['not found'] });
+      } else {
+        // console.log(categories);
+        return res.json({
+          contactUs: contactUs,
+        });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: error });
     }
   },
 };

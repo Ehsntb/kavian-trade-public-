@@ -2,7 +2,7 @@ const { pool } = require('../db/db-config');
 //const bcrypt = require('bcrypt');
 
 module.exports = {
-  createContact: async (name, coName, email, phone, subject, message) => {
+  createContactUs: async (name, coName, email, phone, subject, message) => {
     try {
       const [results] = await pool
         .promise()
@@ -14,6 +14,17 @@ module.exports = {
     } catch (err) {
       console.error(err);
       throw err; // Re-throw the error for proper handling
+    }
+  },
+  getAllContactUs: async () => {
+    try {
+      const [result] = await pool
+        .promise()
+        .query('SELECT * FROM `contact_us`;');
+      return result;
+    } catch (err) {
+      console.log(err);
+      throw err;
     }
   },
 };
