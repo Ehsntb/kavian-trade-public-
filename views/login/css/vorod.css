@@ -1,0 +1,151 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+body{direction: rtl;}
+.topmenu{
+    width: 100%;
+    height: 80px;
+    background-color:#fff;
+    position: fixed;
+    margin: -100px auto;
+    border: 4px solid #ccc;
+    border-radius: 10px;
+}
+.topmenu ul{
+    margin-top: -13px;
+}
+.topmenu li{
+    display: inline;
+    padding: 1%;
+    float: right;
+    background-color: #fff;
+    color: black;
+    font-family: 'my font2';
+}
+.topmenuul a:hover{
+    background-color: black;
+    color: #fff;
+    padding: 10px;
+}
+.logo{float: right;
+    margin-left: 10px;
+    margin-right: 7px;
+    width: 8%;
+    height: 50px;
+    display: inline;
+    text-decoration:none;
+    margin-top: 25px;
+}
+.div-input{
+    float: right;
+    margin-right: 40%;
+    margin-top: 12px;
+    font-family: 'my font2';
+    
+}
+
+.input-text{
+    width: 160px;
+    height: 30px;
+    border: 2px solid #ccc;
+    border-radius: 8px 6px;
+    text-align: center;
+    float: left;
+    margin-top: -5px;
+    }
+.input-submit{
+    width: 60px;
+    height: 20px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    display: inline;
+    margin-left: 30px;
+    padding: 4px;
+}
+a{
+    color:black;
+    text-decoration: none;
+    text-align: center;
+    padding: 2px;
+}
+.input-text input{
+    width: 160px;
+    height: 30px;
+    border: 2px solid #ccc;
+    border-radius: 8px 6px;
+    text-align: center;
+    float: left;
+    font-family: 'my font2';
+}
+@font-face{
+    font-family:'myfont1';
+        src:url('fonts/A.Mitra.01_www.p30download.com.ttf') format('truetype');
+}
+@font-face{
+    font-family:'myfont2';
+        src:url('fonts/A.Mitra.03_www.p30download.com.ttf') format('truetype');
+}
+@font-face{
+    font-family:'my font2';
+    src:url('fonts/B Bardiya Bold_p30download.com.ttf') format('truetype')
+}
+@font-face{
+    font-family:'my font1';
+        src:url('fonts/B Baran_p30download.com.ttf') format('truetype')
+}
+body{
+    font-family: 'my font2';
+}
+.footer1{
+    width: 100%;
+    height: 50px;
+    background-color: #f2f2f2;
+    color:#999999; 
+}
+.footer1 li{
+    display: inline;
+    padding: 80px;
+    font-size: 30px;
+    font-family:'my font1';
+}
+.footer2{
+    width: 100%;
+    height: 282px;
+    background-color:#f2f2f2;
+    color:  #b3b3b3;
+}
+.footer2 li{
+    text-decoration: none;
+    font-family:'my font1';
+    font-size: 20px;
+    margin-right: 100px;
+}
+.footer22{
+    margin: 0 19.5%;
+    font-family:'my font1';
+}
+.footer222{
+    margin: -276px 40%;
+    font-family:'my font1';
+    font-size: 18px;
+}
+.menu{
+    margin-top: 50px;
+}
