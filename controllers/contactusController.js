@@ -22,7 +22,7 @@ module.exports = {
       // const { coName, email, phone, subject, message } = req.body;
       const data = req.body;
       console.log(data);
-      const success = await contactusModel.createContact(
+      const result = await contactusModel.createContact(
         data.name,
         data.coName,
         data.email,
@@ -30,7 +30,7 @@ module.exports = {
         data.subject,
         data.message
       );
-      if (success) {
+      if (result) {
         res.status(
           200,
           json({

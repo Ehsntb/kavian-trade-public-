@@ -8,12 +8,12 @@ const authMiddleware = require('../middleware/authMiddleware');
 const app = express();
 
 // Login Route
-router.post('/login', async (req, res) => {
-  const { username, password } = req.body;
+module.exports = router.post('/login', async (req, res) => {
+  const data = req.body;
   try {
     const [rows] = await db.execute(
       'SELECT * FROM admins WHERE username = ? AND password = ?',
-      [username, password]
+      [data.username, data.password]
     );
     if (rows.length === 0) {
       return res.status(401).json({ error: 'Invalid credentials' });
@@ -33,9 +33,15 @@ router.post('/login', async (req, res) => {
   }
 });
 
-app.use(authMiddleware);
+module.exports = app.use(authMiddleware);
 
-router.get('/admin/products', adminController.getAllProducts);
-router.get('/admin/products/:id', adminController.getProductById);
-router.post('/admin/addproduct', adminController.addProduct);
-router.put('/admin/updateproduct/:id', adminController.updateProductByID);
+module.exports = router.get('/admin/products', adminController.getAllProducts);
+module.exports = router.get(
+  '/admin/products/:id',
+  adminController.getProductById
+);
+module.exports = router.post('/admin/addproduct', adminController.addProduct);
+module.exports = router.put(
+  '/admin/updateproduct/:id',
+  adminController.updateProductByID
+);

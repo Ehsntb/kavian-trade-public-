@@ -10,10 +10,6 @@ module.exports = {
         p.short_description,
         p.long_description,
         p.short_link,
-        p.rial_price,
-        p.doller_price,
-        p.discount,
-        p.grade,
         p.location,
         c.title as category,
         CONCAT('[', GROUP_CONCAT(CONCAT('{ "image_url": "', pg.image_url, '", "is_main": ', pg.is_main, '}')), ']') AS gallery
@@ -49,10 +45,6 @@ module.exports = {
         p.short_description,
         p.long_description,
         p.short_link,
-        p.rial_price,
-        p.doller_price,
-        p.discount,
-        p.grade,
         p.location,
         c.title as category,
         CONCAT('[', GROUP_CONCAT(CONCAT('{ "image_url": "', pg.image_url, '", "is_main": ', pg.is_main, '}')), ']') AS gallery
@@ -91,10 +83,6 @@ module.exports = {
         p.short_description,
         p.long_description,
         p.short_link,
-        p.rial_price,
-        p.doller_price,
-        p.discount,
-        p.grade,
         p.location,
         c.title as category,
         CONCAT('[', GROUP_CONCAT(CONCAT('{ "image_url": "', pg.image_url, '", "is_main": ', pg.is_main, '}')), ']') AS gallery
@@ -181,13 +169,7 @@ module.exports = {
     short_description,
     long_description,
     short_link,
-    rial_price,
-    doller_price,
-    discount,
-    grade,
     location,
-    is_special,
-    is_active,
     category_id,
     productID
   ) => {
@@ -200,30 +182,20 @@ module.exports = {
         short_description = ?,
         long_description = ?,
         short_link = ?,
-        rial_price = ?,
-        doller_price = ?,
-        discount = ?,
-        grade = ?,
         location = ?,
-        is_special = ?,
-        is_active = ?,
         category_id = ?
       WHERE
         id = ?
       `,
-        title,
-        short_description,
-        long_description,
-        short_link,
-        rial_price,
-        doller_price,
-        discount,
-        grade,
-        location,
-        is_special,
-        is_active,
-        category_id,
-        productID
+        [
+          title,
+          short_description,
+          long_description,
+          short_link,
+          location,
+          category_id,
+          productID,
+        ]
       );
       console.log(result);
       return result;
@@ -232,22 +204,18 @@ module.exports = {
       res.status(500).json({ error: 'Internal Server Error' });
     }
   },
+
   insertProduct: async (
     title,
     short_description,
     long_description,
     short_link,
-    rial_price,
-    doller_price,
-    discount,
-    grade,
     location,
-    is_special,
-    is_active,
-    category_id
+    category_id,
+    galleryData
   ) => {
     try {
-      const result = await pool.promise().query(
+      const [productResult] = await pool.promise().query(
         `
       INSERT INTO
        products
@@ -256,33 +224,38 @@ module.exports = {
         short_description,
         long_description,
         short_link,
-        rial_price,
-        doller_price,
-        discount,
-        grade,
         location,
-        is_special,
-        is_active,
         category_id
       )
       VALUES
-      ( ?, ? ,? ,?, ? ,? ,?, ? ,? ,?, ? ,? )
+      ( ?, ? ,? ,?, ? ,? )
       `,
-        title,
-        short_description,
-        long_description,
-        short_link,
-        rial_price,
-        doller_price,
-        discount,
-        grade,
-        location,
-        is_special,
-        is_active,
-        category_id
+        [
+          title,
+          short_description,
+          long_description,
+          short_link,
+          location,
+          category_id,
+        ]
       );
-      console.log(result);
-      return result;
+      const productID = productResult.insertId;
+
+      const galleryPromises = galleryData.map(async (image) => {
+        await pool
+          .promise()
+          .query(
+            `INSERT INTO product_gallery (product_id, image_url, is_main) VALUES (?, ?, ?)`[
+              (productID, image.image_url, image.is_main || 0)
+            ]
+          );
+      });
+
+      await Promise.all(galleryPromises);
+      await connection.commit();
+
+      // console.log(result);
+      return { productID };
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: 'Internal Server Error' });
