@@ -13,19 +13,6 @@ module.exports = {
       } else {
         return res.render('test', { users: user });
       }
-
-      const isPasswordValid = await adminLogin.comparePassword(user, password);
-      if (!isPasswordValid) {
-        return res
-          .status(401)
-          .json({ message: 'Invalid username or password' });
-      }
-
-      // Remove sensitive information (e.g., password) before sending the user object
-      const sanitizedUser = { ...user };
-      delete sanitizedUser.password;
-
-      res.json(sanitizedUser);
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: error });
