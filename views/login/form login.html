@@ -1,43 +1,61 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-    <head>
-    <meta charset="utf-8">
-        <title >فرم ورود کاربران</title>
-        <link rel="stylesheet" href="css/vorod.css">
-        
-    </head>
-    <body style="background-color:bisque;direction: rtl;font-family: ">
-   
-    
-        <h1 style="text-align: center;color: dimgrey;margin-top: 90px;font-size: 30px;">فرم ورود کاربران به صفحه شخصی</h1>
-        <br>
-       <center><img src="images/chlogin.png" alt="login logo"><br><br>
-        <b style="text-align: center;font-size: 120%;color: darkblue">اطلاعات خود را در قسمت زیر وارد کنید:</b><br>
-           <form method="post" action="">
-        <b style="font-size: 120%">نوع کاربر:</b>
-        <select name="user">
-        <option value="برنامه نویسان">برنامه نویسان</option>
-        <option value=";کاربر عادی">کاربر عادی</option>
-        <option value="کارمندان">کارمندان</option>
-        </select><br><br>
-        <b style="font-size: 120%">جنسیت:</b><br>
-        <p2 style="font-size: 120%">مرد</p2>
-        <input type="radio" name="جنسیت" value="مرد"><br>
-        <p3 style="font-size: 120%">زن</p3>
-        <input type="radio" name="جنسیت" value="زن"><br>
-        <p4 style="font-size: 120%">غیره</p4>
-        <input type="radio" name="جنسیت" value="غیره"><br><br>
-        <b style="text-align: right;font-size: 120%;font-family: cursive">نام کاربری:</b><br>
-        <input type="text"  dir="rtl"><br>
-        <b style="text-align: right;font-size: 120%;font-family: cursive">رمز عبور:</b><br>
-        <input type="password" dir="rtl"><br><br>
-        <input type="submit" value="ورود" dir="rtl"><br><br>
-        <p7 style="font-family: inherit;font-size: 130%"><strong>مرا به خاطر بسپار</strong></p7>
-           <input type="checkbox" value="مرا به خاطر بسپار"></center>
-           
-           </form>
-           
-    
-
-    </body>
+  <head>
+    <meta charset="utf-8" />
+    <title>فرم ورود کاربران</title>
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+      rel="stylesheet"
+      id="bootstrap-css"
+    />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id="login">
+      <h3 class="text-center text-white pt-5">Login form</h3>
+      <div class="container">
+        <div
+          id="login-row"
+          class="row justify-content-center align-items-center"
+        >
+          <div id="login-column" class="col-md-6">
+            <div id="login-box" class="col-md-12">
+              <form id="login-form" class="form" action="" method="post">
+                <h3 class="text-center text-info">Login</h3>
+                <div class="form-group">
+                  <label for="username" class="text-info">Username:</label
+                  ><br />
+                  <input
+                    type="text"
+                    name="username"
+                    id="username"
+                    class="form-control"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="password" class="text-info">Password:</label
+                  ><br />
+                  <input
+                    type="text"
+                    name="password"
+                    id="password"
+                    class="form-control"
+                  />
+                </div>
+                <div class="form-group">
+                  <input
+                    type="submit"
+                    name="submit"
+                    class="btn btn-info btn-md"
+                    value="submit"
+                  />
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
