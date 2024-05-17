@@ -4,69 +4,58 @@
     <div class="col-sm-12">
       <div class="card">
         <div
-          class="card-header pb-0 d-flex justify-content-between align-items-center border-bottom">
+          class="card-header pb-0 d-flex justify-content-between align-items-center border-bottom"
+        >
           <h2 class="content-title card-title">ایجاد محصول جدید</h2>
-          <a
-            href="{{ route('products.create') }}"
-            class="btn btn-success me-auto"
+          <a href="/admin/addproduct" class="btn btn-success me-auto"
             ><i class="fa fa-plus me-2"></i>محصول جدید</a
           >
         </div>
         <div class="card-body">
-          <form
-            method="POST"
-            action="{{ route('products.store') }}"
-            enctype="multipart/form-data">
+          <form method="POST" action="/admin/addproduct" id="addProductFor">
             <div class="row">
               <div class="col-lg-4">
-                <label
-                  for="title"
-                  class="form-label"
-                  >عنوان محصول *</label
-                >
+                <label for="title" class="form-label">عنوان محصول *</label>
                 <input
                   id="title"
                   type="text"
                   class="form-control"
-                  name="title" />
+                  name="title"
+                />
               </div>
 
               <div class="col-lg-4">
-                <label
-                  for="serial"
-                  class="form-label"
-                  >سریال</label
+                <label for="short_description" class="form-label"
+                  >توضیحات خلاصه *</label
                 >
-                <input
-                  id="serial"
-                  type="text"
+                <textarea
+                  id="short_description"
                   class="form-control"
-                  name="serial" />
+                  name="short_description"
+                ></textarea>
               </div>
 
               <div class="col-lg-4">
-                <label
-                  for="image"
-                  class="form-label"
+                <label for="main_image" class="form-label"
                   >آپلود تصویر شاخص *</label
                 >
                 <input
-                  id="image"
+                  id="main_image"
                   type="file"
                   class="form-control"
-                  name="image" />
+                  name="main_image"
+                />
               </div>
 
               <div class="col-lg-12">
-                <label
-                  for="my-description"
-                  class="form-label"
-                  >توضیحات محصول *</label
+                <label for="long_description" class="form-label"
+                  >توضیحات کامل *</label
                 >
                 <textarea
-                  id="my-description"
+                  id="long_description"
                   class="form-control"
-                  name="description"></textarea>
+                  name="long_description"
+                ></textarea>
               </div>
 
               <div class="col-lg-12">
@@ -77,12 +66,14 @@
                       <input
                         type="file"
                         class="form-control"
-                        name="gallery_images[]" />
+                        name="gallery_images[]"
+                      />
                     </div>
                     <div class="col-md-2">
                       <button
                         type="button"
-                        class="btn btn-danger btn-sm removeImage">
+                        class="btn btn-danger btn-sm removeImage"
+                      >
                         X
                       </button>
                     </div>
@@ -91,23 +82,34 @@
                 <button
                   type="button"
                   class="btn btn-secondary mt-2"
-                  id="addImage">
+                  id="addImage"
+                >
                   اضافه کردن تصویر
                 </button>
               </div>
 
-              <div class="col-lg-4">
-                <label
-                  for="slug"
-                  class="form-label"
-                  >اسلاگ جهت نمایش در URL (اجبارا با عنوان محصول برابر باشد!)
-                  *</label
+              <div class="col-lg-6">
+                <label for="short_link" class="form-label"
+                  >نام نمایشی محصول در URL *</label
                 >
                 <input
-                  id="slug"
+                  id="short_link"
                   type="text"
                   class="form-control"
-                  name="slug" />
+                  name="short_link"
+                />
+              </div>
+
+              <div class="col-lg-6">
+                <label for="location" class="form-label"
+                  >نام مکان پرورش یا تولید *</label
+                >
+                <input
+                  id="location"
+                  type="text"
+                  class="form-control"
+                  name="location"
+                />
               </div>
 
               <div class="col-lg-12">
@@ -115,8 +117,12 @@
                 <select
                   id="categories"
                   class="form-control"
-                  name="categories[]"
-                  multiple>
+                  name="category"
+                  required
+                >
+                  <option value="" disabled selected>
+                    دسته مورد نظر را انتخاب کنید.
+                  </option>
                   <% for (category of categories){ %>
                   <option value="<%= category.id %>">
                     <%= category.title %>
@@ -132,11 +138,7 @@
               <hr />
 
               <div class="col-lg-12 mt-3">
-                <button
-                  type="submit"
-                  class="btn btn-primary">
-                  ثبت محصول
-                </button>
+                <button type="submit" class="btn btn-primary">ثبت محصول</button>
               </div>
             </div>
           </form>
@@ -146,41 +148,5 @@
     </div>
   </div>
 </div>
+
 <!-- Container-fluid Ends-->
-
-<script>
-  $('#categories').select2({
-    placeholder: 'دسته مورد نظر را انتخاب کنید',
-  });
-</script>
-
-<script>
-  $(document).ready(function () {
-    $('#addImage').click(function () {
-      let imageDiv = $('<div>').addClass('row mb-2');
-
-      let imageInputDiv = $('<div>').addClass('col-md-10');
-      let imageInput = $('<input>')
-        .attr({
-          type: 'file',
-          name: 'gallery_images[]',
-        })
-        .addClass('form-control');
-      imageInputDiv.append(imageInput);
-
-      let deleteButtonDiv = $('<div>').addClass('col-md-2');
-      let deleteButton = $('<button>')
-        .addClass('btn btn-danger btn-sm removeImage')
-        .text('X');
-      deleteButton.on('click', function (e) {
-        e.preventDefault();
-        imageDiv.remove();
-      });
-      deleteButtonDiv.append(deleteButton);
-
-      imageDiv.append(imageInputDiv, deleteButtonDiv);
-
-      $('#galleryContainer').append(imageDiv);
-    });
-  });
-</script>

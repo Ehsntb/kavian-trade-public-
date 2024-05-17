@@ -1,7 +1,7 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-const categoryController = require('../controllers/categoryController');
+const categoryController = require("../controllers/categoryController");
 
 // Users Endpoint
 // module.exports = router.get(
@@ -12,4 +12,4 @@ const categoryController = require('../controllers/categoryController');
 //   }
 // );
 
-module.exports = router.get('/', categoryController.getAllCategories); // GET request
+module.exports = router.get("/", categoryController.getAllCategories); // GET request

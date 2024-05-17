@@ -4,11 +4,10 @@
     <div class="col-sm-12">
       <div class="card">
         <div
-          class="card-header pb-0 d-flex justify-content-between align-items-center border-bottom">
+          class="card-header pb-0 d-flex justify-content-between align-items-center border-bottom"
+        >
           <h2 class="content-title card-title">لیست محصولات</h2>
-          <a
-            href="{{ route('products.create') }}"
-            class="btn btn-success me-auto"
+          <a href="/admin/addproduct" class="btn btn-success me-auto"
             ><i class="fa fa-plus me-2"></i>ایجاد محصول جدید</a
           >
         </div>
@@ -17,25 +16,33 @@
             <table class="table table-hover text-center table-bordered">
               <thead>
                 <tr class="text-center">
-                  <th>آی دی محصول</th>
-
+                  <th class="col">آی دی محصول</th>
                   <th class="col">عنوان محصول</th>
+                  <!-- <th class="col">توضیحات خلاصه</th>
+                  <th class="col">توضیحات کامل</th> -->
+                  <th class="col">لینک</th>
+                  <th class="col">مکان</th>
+                  <th class="col">نام دسته بندی</th>
+                  <th class="col">عکس</th>
+                  <th class="col">تغییرات</th>
                 </tr>
               </thead>
               <tbody>
                 <% products.forEach(function(product){ %>
                 <tr class="text-center align-middle">
+                  <th id="productId"><%= product.id %></th>
                   <th><%= product.title %></th>
-                  <th></th>
-                  <th><%= product.short_description %></th>
-                  <th><%= product.long_description %></th>
+                  <!-- <th><%= product.short_description %></th>
+                  <th><%= product.long_description %></th> -->
                   <th><%= product.short_link %></th>
                   <th><%= product.location %></th>
-                  <th><%= product.category_name %></th>
+                  <th><%= product.category %></th>
                   <th>
                     <img
-                      src="<%= product.image_url %>"
-                      alt="" />
+                      src="../../images/productsImages/<%= product.gallery[0].image_url %>"
+                      alt=""
+                      style="width: 30px; height: 40px"
+                    />
                   </th>
 
                   <th class="">
@@ -49,12 +56,14 @@
                       </div>
                       <div class="me-2">
                         <form
+                          id="deleteByIdForm"
                           method="POST"
-                          action="{{ route('products.destroy' , ['product'=> $product->id]) }}">
-                         
+                          action="/admin/deleteproduct/<%= product.id %>"
+                        >
                           <button
                             type="submit"
-                            class="btn btn-sm btn-danger ms-1">
+                            class="btn btn-sm btn-danger ms-1"
+                          >
                             حذف
                           </button>
                         </form>

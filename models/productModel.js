@@ -1,4 +1,4 @@
-const { pool } = require('../db/db-config');
+const { pool } = require("../db/db-config");
 //const bcrypt = require('bcrypt');
 
 module.exports = {
@@ -6,6 +6,7 @@ module.exports = {
     try {
       const [products] = await pool.promise().query(
         `SELECT
+        p.id,
         p.title,
         p.short_description,
         p.long_description,
@@ -23,6 +24,7 @@ module.exports = {
         p.id`
       );
       var result = products.map((row) => ({
+        id: row.id,
         title: row.title,
         short_description: row.short_description,
         long_description: row.long_description,
@@ -155,13 +157,13 @@ module.exports = {
     try {
       const result = await pool
         .promise()
-        .query('DELETE FROM products WHERE id = ?', productID);
+        .query("DELETE FROM products WHERE id = ?", productID);
 
       console.log(result);
       return result;
     } catch (err) {
       console.error(err);
-      res.status(500).json({ error: 'Internal Server Error' });
+      res.status(500).json({ error: "Internal Server Error" });
     }
   },
   updateProductById: async (
@@ -201,7 +203,7 @@ module.exports = {
       return result;
     } catch (err) {
       console.error(err);
-      res.status(500).json({ error: 'Internal Server Error' });
+      res.status(500).json({ error: "Internal Server Error" });
     }
   },
 
@@ -258,7 +260,7 @@ module.exports = {
       return { productID };
     } catch (err) {
       console.error(err);
-      res.status(500).json({ error: 'Internal Server Error' });
+      res.status(500).json({ error: "Internal Server Error" });
     }
   },
 };
