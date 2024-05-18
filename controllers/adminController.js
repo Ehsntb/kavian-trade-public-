@@ -4,6 +4,28 @@ const contactusModel = require("../models/contactusModel");
 const categoryModel = require("../models/categoryModel");
 const { getAllCategories } = require("./categoryController");
 
+const path = require("path");
+const multer = require("multer");
+const { randomInt } = require("crypto");
+
+// Setup multer for image uploads
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "views/images/productsImages/");
+  },
+  filename: (req, file, cb) => {
+    cb(
+      null,
+      Date.now() +
+        "_" +
+        randomInt(10).toString() +
+        "_" +
+        path.extname(file.originalname)
+    );
+  },
+});
+const upload = multer({ storage });
+
 module.exports = {
   authAdmin: async (req, res) => {
     const { username } = req.body;
@@ -64,18 +86,66 @@ module.exports = {
     }
   },
 
-  addProduct: async (req, res) => {
-    try {
-      console.log(req.body);
-      // const { product } = req.body.title;
-      // console.log(product);
-      // const newProduct = await productModel.insertProduct(product);
-      return res.redirect("/admin/products", 200);
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ message: err });
-    }
-  },
+  // addProduct: async (req, res) => {
+  //   try {
+  //     console.log(req.body);
+  //     const { product } = req.body.title;
+  //     console.log(product);
+  //     const newProduct = await productModel.insertProduct(product);
+  //     return res.redirect("/admin/products", 200);
+  //   } catch (err) {
+  //     console.error(err);
+  //     res.status(500).json({ message: err });
+  //   }
+  // },
+
+  //chatgpt
+
+  addProduct: [
+    upload.fields([
+      { name: "main_image", maxCount: 1 },
+      { name: "gallery_images[]", maxCount: 100 },
+    ]),
+    async (req, res) => {
+      const {
+        title,
+        short_description,
+        long_description,
+        short_link,
+        location,
+        category_id,
+      } = req.body;
+      const mainImage = req.files["main_image"]
+        ? req.files["main_image"][0].filename
+        : null;
+
+      try {
+        // Add product to the database
+        const productId = await productModel.addProduct(
+          title,
+          short_description,
+          long_description,
+          mainImage,
+          short_link,
+          location,
+          category_id
+        );
+
+        // Add gallery images to the database
+        const galleryImages = req.files["gallery_images[]"];
+        if (galleryImages) {
+          for (const image of galleryImages) {
+            await productModel.addGalleryImage(productId, image.filename, "0");
+          }
+        }
+
+        res.redirect("/admin/products");
+      } catch (err) {
+        console.error(err);
+        res.status(500).send("Server Error");
+      }
+    },
+  ],
 
   updateProductByID: async (req, res) => {
     try {

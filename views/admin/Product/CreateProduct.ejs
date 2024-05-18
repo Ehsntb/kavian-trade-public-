@@ -12,7 +12,12 @@
           >
         </div>
         <div class="card-body">
-          <form method="POST" action="/admin/addproduct" id="addProductFor">
+          <form
+            method="POST"
+            action="/admin/addproduct"
+            id="addProductFor"
+            enctype="multipart/form-data"
+          >
             <div class="row">
               <div class="col-lg-4">
                 <label for="title" class="form-label">عنوان محصول *</label>
@@ -44,6 +49,7 @@
                   type="file"
                   class="form-control"
                   name="main_image"
+                  accept="image/*"
                 />
               </div>
 
@@ -67,6 +73,7 @@
                         type="file"
                         class="form-control"
                         name="gallery_images[]"
+                        accept="image/*"
                       />
                     </div>
                     <div class="col-md-2">
@@ -117,7 +124,7 @@
                 <select
                   id="categories"
                   class="form-control"
-                  name="category"
+                  name="category_id"
                   required
                 >
                   <option value="" disabled selected>

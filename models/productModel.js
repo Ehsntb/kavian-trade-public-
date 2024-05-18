@@ -207,14 +207,14 @@ module.exports = {
     }
   },
 
-  insertProduct: async (
+  addProduct: async (
     title,
     short_description,
     long_description,
+    mainImage,
     short_link,
     location,
-    category_id,
-    galleryData
+    category_id
   ) => {
     try {
       const [productResult] = await pool.promise().query(
@@ -242,22 +242,27 @@ module.exports = {
         ]
       );
       const productID = productResult.insertId;
-
-      const galleryPromises = galleryData.map(async (image) => {
-        await pool
-          .promise()
-          .query(
-            `INSERT INTO product_gallery (product_id, image_url, is_main) VALUES (?, ?, ?)`[
-              (productID, image.image_url, image.is_main || 0)
-            ]
-          );
-      });
-
-      await Promise.all(galleryPromises);
-      await connection.commit();
-
+      await pool
+        .promise()
+        .query(
+          "insert into product_gallery (product_id, image_url, is_main) values (?, ?, ?)",
+          [productID, mainImage, "1"]
+        );
       // console.log(result);
       return { productID };
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  },
+  addGalleryImage: async (product_id, image_url, is_main) => {
+    try {
+      const [result] = await pool
+        .promise()
+        .query(
+          "INSERT INTO product_gallery (product_id, image_url, is_main) VALUES (?, ?, ?)",
+          [product_id.productID, image_url, is_main]
+        );
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: "Internal Server Error" });

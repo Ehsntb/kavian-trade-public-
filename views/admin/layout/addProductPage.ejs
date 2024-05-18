@@ -12,6 +12,7 @@ include('../layout/downindex.ejs') %>
         .attr({
           type: "file",
           name: "gallery_images[]",
+          accept: "image/*",
         })
         .addClass("form-control");
       imageInputDiv.append(imageInput);

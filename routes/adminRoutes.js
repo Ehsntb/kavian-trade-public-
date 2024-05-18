@@ -5,7 +5,8 @@ const jwt = require("jsonwebtoken");
 const { pool } = require("../db/db-config");
 const adminController = require("../controllers/adminController");
 const authMiddleware = require("../middleware/authMiddleware");
-const categoryController = require("../controllers/categoryController");
+const upload = require("../middleware/multer");
+
 const app = express();
 
 module.exports = app.use(authMiddleware);
@@ -85,3 +86,9 @@ module.exports = router.get(
   // authMiddleware,
   adminController.getAllContactUs
 );
+
+module.exports = router.get("/test");
+
+module.exports = router.get("/admin", (req, res) => {
+  res.redirect("/admin/products");
+});
