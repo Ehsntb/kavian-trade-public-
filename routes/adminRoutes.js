@@ -58,18 +58,23 @@ module.exports = router.get("/logout", (req, res) => {
 
 module.exports = router.get(
   "/admin/products",
-  // authMiddleware,
+  authMiddleware,
   adminController.getAllProducts
 );
 
 module.exports = router.get(
   "/admin/product/:id",
+  authMiddleware,
   adminController.getProductById
 );
 
 module.exports = router
-  .get("/admin/addproduct", adminController.getAllCategoriesAddProduct)
-  .post("/admin/addproduct", adminController.addProduct);
+  .get(
+    "/admin/addproduct",
+    authMiddleware,
+    adminController.getAllCategoriesAddProduct
+  )
+  .post("/admin/addproduct", authMiddleware, adminController.addProduct);
 
 // module.exports = router.put(
 //   '/admin/updateproduct/:id',
@@ -78,16 +83,15 @@ module.exports = router
 
 module.exports = router.post(
   "/admin/deleteproduct/:id",
+  authMiddleware,
   adminController.deleteProductsById
 );
 
 module.exports = router.get(
   "/admin/contactus",
-  // authMiddleware,
+  authMiddleware,
   adminController.getAllContactUs
 );
-
-module.exports = router.get("/test");
 
 module.exports = router.get("/admin", (req, res) => {
   res.redirect("/admin/products");
