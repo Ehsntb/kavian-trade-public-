@@ -53,7 +53,7 @@ module.exports = {
         return res.status(404).render("404");
       } else {
         // console.log(product);
-        return res.render("admin/layout/AllProductsPage", {
+        return res.render("/admin/layout/AllProductsPage", {
           products: products,
           categories: categories,
         });
