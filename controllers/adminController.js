@@ -138,7 +138,7 @@ module.exports = {
           }
         }
 
-        res.redirect("/admin/products");
+        res.redirect("admin/products");
       } catch (err) {
         console.error(err);
         res.status(500).send("Server Error");
