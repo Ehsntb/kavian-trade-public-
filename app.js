@@ -11,10 +11,6 @@ const multer = require("multer");
 // Let's refer to Express as app
 const app = express();
 
-const upload = multer({
-  dest: path.join(__dirname, "views/images/productsImages"),
-});
-
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static("views"));
