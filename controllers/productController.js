@@ -1,5 +1,5 @@
-const productModel = require('../models/productModel');
-const categoryModel = require('../models/categoryModel');
+const productModel = require("../models/productModel");
+const categoryModel = require("../models/categoryModel");
 
 module.exports = {
   getAllProducts: async (req, res) => {
@@ -7,13 +7,13 @@ module.exports = {
       const products = await productModel.getAllProducts();
       const categories = await categoryModel.getAllCategories();
 
-      console.log('Products:', products);
+      console.log("Products:", products);
 
       if (products.length < 1) {
-        return res.status(404).render('404');
+        return res.status(404).render("404");
       } else {
         // console.log(product);
-        return res.render('productList', {
+        return res.render("productList", {
           products: products,
           categories: categories,
         });
@@ -29,12 +29,12 @@ module.exports = {
       const product = await productModel.getProductByShortLink(shortlink);
       const categories = await categoryModel.getAllCategories();
 
-      console.log('Product:', product);
+      console.log("Product:", product);
       if (!product) {
-        return res.status(404).render('404');
+        return res.status(404).render("404");
       } else {
         // console.log(product);
-        return res.render('productPage', {
+        return res.render("productPage", {
           product: product,
           categories: categories,
         });
@@ -52,12 +52,12 @@ module.exports = {
       );
       const categories = await categoryModel.getAllCategories();
 
-      console.log('Products:', products);
+      console.log("Products:", products);
       if (!products) {
-        return res.status(404).render('404');
+        return res.status(404).render("404");
       } else {
         // console.log(product);
-        return res.render('productList', {
+        return res.render("productList", {
           products: products,
           categories: categories,
         });
