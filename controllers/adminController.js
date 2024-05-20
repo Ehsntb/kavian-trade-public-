@@ -85,19 +85,6 @@ module.exports = {
     }
   },
 
-  // addProduct: async (req, res) => {
-  //   try {
-  //     console.log(req.body);
-  //     const { product } = req.body.title;
-  //     console.log(product);
-  //     const newProduct = await productModel.insertProduct(product);
-  //     return res.redirect("/admin/products", 200);
-  //   } catch (err) {
-  //     console.error(err);
-  //     res.status(500).json({ message: err });
-  //   }
-  // },
-
   //chatgpt
 
   addProduct: [
