@@ -1,3 +1,19 @@
+<div id="google_translate_element"></div>
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement(
+      {
+        pageLanguage: "fa",
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+      },
+      "google_translate_element"
+    );
+  }
+</script>
+<script
+  type="text/javascript"
+  src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+></script>
 <header class="hdr-wrap">
   <div class="hdr hdr-style6">
     <div class="hdr-content">
@@ -15,11 +31,10 @@
           <div class="col-auto hdr-logo">
             <a href="/" class="logo"
               ><img
-                srcset="
-                  images/skins/food/logo-food.png   1x,
-                  images/skins/food/logo-food2x.png 2x
-                "
+                srcset="/images/logo-icon.png 1x"
                 alt="Logo"
+                height="60px"
+                width="60px"
             /></a>
           </div>
           <!--navigation-->
@@ -71,6 +86,9 @@
               </li>
               <li class="mmenu-item--simple">
                 <a href="/about_us">درباره ما</a>
+              </li>
+              <li class="mmenu-item--simple">
+                <a href="/login">ورود به پنل مدیر</a>
               </li>
             </ul>
 
