@@ -34,9 +34,9 @@ const productRouter = require("./routes/productRoutes");
 const contactustRouter = require("./routes/contactusRoutes");
 
 // Test Route
-// app.get("/ttt", async (req, res) => {
-//   res.render("admin/layout/addProductPage");
-// });
+app.get("/ttt", async (req, res) => {
+  res.render("admin/layout/addProductPage");
+});
 
 // Routes
 app.use(adminRouter);
@@ -45,9 +45,9 @@ app.use(productRouter);
 app.use(contactustRouter);
 
 // Catch-all route for undefined routes with a 404 error page
-// app.use((req, res, next) => {
-//   res.status(404).render("404");
-// });
+app.use((req, res, next) => {
+  res.status(404).render("404");
+});
 
 app
   .listen(
