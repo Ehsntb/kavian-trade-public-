@@ -2,7 +2,6 @@ const adminLogin = require("../models/adminLoginModel");
 const productModel = require("../models/productModel");
 const contactusModel = require("../models/contactusModel");
 const categoryModel = require("../models/categoryModel");
-const { getAllCategories } = require("./categoryController");
 
 const path = require("path");
 const multer = require("multer");
