@@ -1,4 +1,5 @@
 const categoryModel = require("../models/categoryModel");
+const contactusModel = require("../models/contactusModel");
 
 module.exports = {
   contactUsHeader: async (req, res) => {
