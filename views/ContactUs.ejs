@@ -35,28 +35,29 @@
     <script>
       function submitForm() {
         const formData = {
-          name: document.getElementByName('name').value,
-          coName: document.getElementsByName('coName').value,
-          email: document.getElementsByName('email').value,
-          phone: document.getElementsByName('phone').value,
-          subject: document.getElementsByName('subject').value,
-          message: document.getElementsByName('message').value,
+          name: document.getElementByName("name").value,
+          coName: document.getElementsByName("coName").value,
+          email: document.getElementsByName("email").value,
+          phone: document.getElementsByName("phone").value,
+          subject: document.getElementsByName("subject").value,
+          message: document.getElementsByName("message").value,
         };
 
-        fetch('/contact_us', {
-          method: 'POST',
+        fetch("/contact_us", {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify(formData),
         })
           .then((response) => {
             // Handle response
             console.log(response);
+            alert(response.body);
           })
           .catch((error) => {
             // Handle error
-            console.error('Error:', error);
+            console.error("Error:", error);
           });
       }
     </script>
