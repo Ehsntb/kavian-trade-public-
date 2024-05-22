@@ -1,21 +1,15 @@
-const contactusModel = require("../models/contactusModel");
 const categoryModel = require("../models/categoryModel");
 
 module.exports = {
   contactUsHeader: async (req, res) => {
     try {
-      const contactUs = await contactusModel.getAllContactUs();
       const categories = await categoryModel.getAllCategories();
       // console.log('categories:', categories);
-      if (contactUs.length < 1) {
-        return res.status(404).render("404", { contactUs: ["not found"] });
-      } else {
-        // console.log(categories);
-        return res.render("ContactUs", {
-          contactUs: contactUs,
-          categories: categories,
-        });
-      }
+
+      // console.log(categories);
+      return res.render("ContactUs", {
+        categories: categories,
+      });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: error });
