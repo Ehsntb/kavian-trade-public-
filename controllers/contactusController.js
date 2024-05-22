@@ -31,9 +31,8 @@ module.exports = {
       );
       if (result) {
         res.status(
-          200,
           json({
-            message: "Your message has been submitted!",
+            result: "Your message has been submitted!",
           })
         );
       } else {
