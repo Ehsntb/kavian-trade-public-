@@ -21,7 +21,7 @@ module.exports = {
       // const { coName, email, phone, subject, message } = req.body;
       const data = req.body;
       console.log(data);
-      const result = await contactusModel.createContact(
+      const result = await contactusModel.createContactUs(
         data.name,
         data.coName,
         data.email,
