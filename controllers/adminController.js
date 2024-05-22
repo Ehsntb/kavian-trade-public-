@@ -162,7 +162,9 @@ module.exports = {
       const contactUs = await contactusModel.getAllContactUs();
       // console.log('categories:', categories);
       if (contactUs.length < 1) {
-        return res.status(404).render("404", { contactUs: ["not found"] });
+        return res.render("admin/layout/contactUsPage", {
+          results: ["not found"],
+        });
       } else {
         // console.log(categories);
         return res.render("admin/layout/contactUsPage", {

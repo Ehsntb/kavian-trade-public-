@@ -4,10 +4,14 @@
     <div class="col-sm-12">
       <div class="card">
         <div
-          class="card-header pb-0 d-flex justify-content-between align-items-center border-bottom">
+          class="card-header pb-0 d-flex justify-content-between align-items-center border-bottom"
+        >
           <h2 class="content-title card-title">لیست درخواست ها</h2>
         </div>
         <div class="card-body">
+          <% if ( result === "not found") { %>
+          <p class="pull-right mb-0">موردی یافت نشد!</p>
+          <% } else {%>
           <div class="table-responsive">
             <table class="table table-hover text-center table-bordered">
               <thead>
@@ -36,6 +40,7 @@
               </tbody>
             </table>
           </div>
+          <% } %>
         </div>
         <div class="card-footer"></div>
       </div>
