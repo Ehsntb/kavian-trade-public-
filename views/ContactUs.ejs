@@ -55,6 +55,9 @@
             console.log(response);
             alert(response.result);
           })
+          .then((data) => {
+            alert(data.result);
+          })
           .catch((error) => {
             // Handle error
             console.error("Error:", error);
