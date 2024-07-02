@@ -130,4 +130,4 @@ dist
 .pnp.*
 
 # public
-images/productsImages/
+views/images/productsImages/
