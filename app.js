@@ -32,6 +32,7 @@ const adminRouter = require("./routes/adminRoutes");
 const categoryRouter = require("./routes/categoryRoutes");
 const productRouter = require("./routes/productRoutes");
 const contactustRouter = require("./routes/contactusRoutes");
+const aboutusRouter = require("./routes/aboutusRoutes");
 
 // Test Route
 app.get("/ttt", async (req, res) => {
@@ -43,6 +44,7 @@ app.use(adminRouter);
 app.use(categoryRouter);
 app.use(productRouter);
 app.use(contactustRouter);
+app.use(aboutusRouter);
 
 // Catch-all route for undefined routes with a 404 error page
 app.use((req, res, next) => {
