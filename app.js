@@ -35,7 +35,7 @@ const contactustRouter = require("./routes/contactusRoutes");
 
 // Test Route
 app.get("/ttt", async (req, res) => {
-  res.render("admin/layout/addProductPage");
+  res.render("aboutUs");
 });
 
 // Routes
