@@ -59,6 +59,10 @@
 
 ---------------------------------------*/
 /*  1. Main Structure  */
+body {
+  background-color: #fbfbfb
+}
+
 .blur-up {
   transition: filter 1000ms 100ms;
 
