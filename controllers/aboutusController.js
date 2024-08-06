@@ -7,7 +7,7 @@ module.exports = {
       // console.log('categories:', categories);
 
       // console.log(categories);
-      return res.render("AboutUs", {
+      return res.render("aboutus", {
         categories: categories,
       });
     } catch (error) {
