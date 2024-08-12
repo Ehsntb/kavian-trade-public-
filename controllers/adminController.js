@@ -51,7 +51,7 @@ module.exports = {
 
       if (products.length < 1) {
         return res.render("admin/layout/allProductsPage", {
-          product: ["not found"],
+          products: ["not found"],
         });
       } else {
         // console.log(product);
