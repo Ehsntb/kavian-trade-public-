@@ -10,26 +10,20 @@
       "google_translate_element"
     );
 
-    function setTranslateLanguage() {
-      var translateFrame = document.querySelector(
-        "iframe.goog-te-banner-frame"
-      );
-      if (translateFrame) {
-        var innerDoc =
-          translateFrame.contentDocument ||
-          translateFrame.contentWindow.document;
-        var translateElement = innerDoc.querySelector(".goog-te-menu-frame");
-        if (translateElement) {
-          translateElement.src = translateElement.src.split("&")[0] + "&tl=en"; // Replace 'en' with your target language code
-        }
+    function simulateUserLanguageChange(lang) {
+      var selectElement = document.querySelector(".goog-te-combo");
+      if (selectElement) {
+        selectElement.value = lang;
+        selectElement.dispatchEvent(new Event("change"));
+      } else {
+        console.error("Google Translate dropdown not found.");
       }
     }
 
-    // Trigger translation once the iframe is loaded
     window.addEventListener("load", function () {
       setTimeout(function () {
-        setTranslateLanguage();
-      }, 5000); // Adjust this timeout if needed
+        simulateUserLanguageChange("en"); // Change "en" to your desired language code
+      }, 3000); // Increase the timeout if the dropdown is not available yet
     });
   }
 </script>
