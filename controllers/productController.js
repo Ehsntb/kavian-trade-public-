@@ -10,7 +10,9 @@ module.exports = {
       console.log("Products:", products);
 
       if (products.length < 1) {
-        return res.status(404).render("404");
+        return res.render("productList", {
+          products: ["not found"],
+        });
       } else {
         // console.log(product);
         return res.render("productList", {
