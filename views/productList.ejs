@@ -47,6 +47,9 @@
           <!-- /Left column -->
           <!-- Center column -->
           <div class="col-lg aside">
+            <% if (products == "not found") { %>
+            <p class="pull-right mb-2">موردی یافت نشد!</p>
+            <% } else { %>
             <div class="prd-grid-wrap">
               <!-- Products Grid -->
               <div
@@ -58,6 +61,7 @@
               </div>
               <!-- /Products Grid -->
             </div>
+            <% } %>
           </div>
           <!-- /Center column -->
         </div>
