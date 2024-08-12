@@ -10,22 +10,26 @@
       "google_translate_element"
     );
 
-    function simulateUserLanguageChange(lang) {
-      var selectElement = document.querySelector(".goog-te-combo");
-      if (selectElement) {
-        selectElement.value = lang;
-        selectElement.dispatchEvent(new Event("change"));
-      } else {
-        console.error("Google Translate dropdown not found.");
+    function setDefaultLanguage() {
+      // Check for googtrans parameter in URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const defaultLanguage = urlParams.get("googtrans");
+
+      // If no parameter, try to use user's preferred language
+      if (!defaultLanguage) {
+        const userLanguage = navigator.language || navigator.userLanguage;
+        defaultLanguage = userLanguage.substring(0, 2); // Extract language code
+      }
+
+      // Set the default language using the googtrans parameter
+      if (defaultLanguage) {
+        const script = document.createElement("script");
+        script.src = `//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit&hl=${defaultLanguage}`;
+        document.head.appendChild(script);
       }
     }
 
-    window.addEventListener("load", function () {
-      setTimeout(function () {
-        simulateUserLanguageChange("en"); // Change "en" to your desired language code
-        console.log("done!");
-      }, 3000); // Increase the timeout if the dropdown is not available yet
-    });
+    setDefaultLanguage();
   }
 </script>
 <script
