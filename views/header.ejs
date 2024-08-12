@@ -9,13 +9,25 @@
       },
       "google_translate_element"
     );
-    setTimeout(function () {
-      var translateDropdown = document.querySelector(".goog-te-combo");
-      if (translateDropdown) {
-        translateDropdown.value = "fr"; // Set to English (or any other language code)
-        translateDropdown.dispatchEvent(new Event("change"));
+
+    function triggerTranslate(lang) {
+      var iframe = document.querySelector("iframe.goog-te-banner-frame");
+      if (iframe) {
+        var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+        var langSelect = innerDoc.querySelector("select.goog-te-combo");
+        if (langSelect) {
+          langSelect.value = lang;
+          langSelect.dispatchEvent(new Event("change"));
+        }
       }
-    }, 1000);
+    }
+
+    // Wait for the Google Translate iframe to load, then set the language
+    window.addEventListener("load", function () {
+      setTimeout(function () {
+        triggerTranslate("en"); // Replace 'en' with the language code you want
+      }, 1000); // Adjust the timeout duration as needed
+    });
   }
 </script>
 <script
