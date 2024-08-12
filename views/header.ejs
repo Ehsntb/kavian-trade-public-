@@ -11,25 +11,6 @@
       "google_translate_element"
     );
   }
-  function setDefaultLanguage() {
-    // Prioritize URL parameter
-    const urlParams = new URLSearchParams(window.location.search);
-    const forcedLanguage = urlParams.get("lang");
-
-    // Detect user language with fallback
-    const userLanguage = navigator.language || navigator.userLanguage || "en"; // Default to English
-    const userLangCode = userLanguage.substring(0, 2);
-
-    // Determine final language based on priorities
-    const defaultLanguage = forcedLanguage || userLangCode;
-
-    // Load Google Translate API with the determined language
-    const script = document.createElement("script");
-    script.src = `//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit&hl=${defaultLanguage}`;
-    document.head.appendChild(script);
-  }
-
-  setDefaultLanguage();
 </script>
 
 <script
