@@ -12,6 +12,7 @@ module.exports = {
       if (products.length < 1) {
         return res.render("productList", {
           products: ["not found"],
+          categories: categories,
         });
       } else {
         // console.log(product);
