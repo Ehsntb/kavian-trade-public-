@@ -5,9 +5,17 @@
       {
         pageLanguage: "fa",
         layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+        multilanguagePage: true,
       },
       "google_translate_element"
     );
+    setTimeout(function () {
+      var translateDropdown = document.querySelector(".goog-te-combo");
+      if (translateDropdown) {
+        translateDropdown.value = "en"; // Set to English (or any other language code)
+        translateDropdown.dispatchEvent(new Event("change"));
+      }
+    }, 500);
   }
 </script>
 <script
