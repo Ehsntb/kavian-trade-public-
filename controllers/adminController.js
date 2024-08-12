@@ -74,6 +74,11 @@ module.exports = {
         return res.status(404).render("404");
       } else {
         // console.log(product);
+        if (product.length < 1) {
+          return res.render("productPage", {
+            product: ["not found"],
+          });
+        }
         return res.render("productPage", {
           product: product,
           categories: categories,
