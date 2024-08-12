@@ -1,3 +1,4 @@
+<div id="google_translate_element"></div>
 <script type="text/javascript">
   function googleTranslateElementInit() {
     new google.translate.TranslateElement(
@@ -10,30 +11,26 @@
     );
   }
 
-  // Function to set the default language based on URL parameter or user preference
   function setDefaultLanguage() {
-    // Check for googtrans parameter in URL
+    // Prioritize URL parameter
     const urlParams = new URLSearchParams(window.location.search);
-    const defaultLanguage = urlParams.get("googtrans");
+    const forcedLanguage = urlParams.get("lang");
 
-    // If no parameter, try to use user's preferred language
-    if (!defaultLanguage) {
-      const userLanguage = navigator.language || navigator.userLanguage;
-      defaultLanguage = userLanguage.substring(0, 2); // Extract language code
-    }
+    // Detect user language with fallback
+    const userLanguage = navigator.language || navigator.userLanguage || "en"; // Default to English
+    const userLangCode = userLanguage.substring(0, 2);
 
-    // Set the default language using the googtrans parameter
-    if (defaultLanguage) {
-      const script = document.createElement("script");
-      script.src = `//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit&hl=${defaultLanguage}`;
-      document.head.appendChild(script);
-    }
+    // Determine final language based on priorities
+    const defaultLanguage = forcedLanguage || userLangCode;
+
+    // Load Google Translate API with the determined language
+    const script = document.createElement("script");
+    script.src = `//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit&hl=${defaultLanguage}`;
+    document.head.appendChild(script);
   }
 
   setDefaultLanguage();
 </script>
-
-<div id="google_translate_element"></div>
 
 <script
   type="text/javascript"
