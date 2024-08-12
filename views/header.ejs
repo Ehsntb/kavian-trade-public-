@@ -10,23 +10,26 @@
       "google_translate_element"
     );
 
-    function triggerTranslate(lang) {
-      var iframe = document.querySelector("iframe.goog-te-banner-frame");
-      if (iframe) {
-        var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
-        var langSelect = innerDoc.querySelector("select.goog-te-combo");
-        if (langSelect) {
-          langSelect.value = lang;
-          langSelect.dispatchEvent(new Event("change"));
+    function setTranslateLanguage() {
+      var translateFrame = document.querySelector(
+        "iframe.goog-te-banner-frame"
+      );
+      if (translateFrame) {
+        var innerDoc =
+          translateFrame.contentDocument ||
+          translateFrame.contentWindow.document;
+        var translateElement = innerDoc.querySelector(".goog-te-menu-frame");
+        if (translateElement) {
+          translateElement.src = translateElement.src.split("&")[0] + "&tl=en"; // Replace 'en' with your target language code
         }
       }
     }
 
-    // Wait for the Google Translate iframe to load, then set the language
+    // Trigger translation once the iframe is loaded
     window.addEventListener("load", function () {
       setTimeout(function () {
-        triggerTranslate("en"); // Replace 'en' with the language code you want
-      }, 5000); // Adjust the timeout duration as needed
+        setTranslateLanguage();
+      }, 1000); // Adjust this timeout if needed
     });
   }
 </script>
