@@ -76,7 +76,7 @@ module.exports = {
         return res.status(404).render("404");
       } else {
         // console.log(product);
-        return res.render("admin/layout/editProductPage", {
+        return res.render("/views/admin/layout/editProductPage", {
           product: product,
           categories: categories,
         });
