@@ -101,6 +101,7 @@ module.exports = {
         productID
       );
       var result = products.map((row) => ({
+        id: productID,
         title: row.title,
         short_description: row.short_description,
         long_description: row.long_description,

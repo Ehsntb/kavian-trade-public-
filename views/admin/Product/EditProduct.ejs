@@ -14,7 +14,7 @@
         <div class="card-body">
           <form
             method="POST"
-            action="/admin/addproduct"
+            action="/admin/updateproduct/:<%= product.id %>"
             id="addProductFor"
             enctype="multipart/form-data"
           >
@@ -72,7 +72,8 @@
                   name="long_description"
                   required
                 >
-<%= product.long_description %></textarea
+<%= product.long_description %>
+</textarea
                 >
               </div>
 
