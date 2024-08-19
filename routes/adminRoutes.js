@@ -6,6 +6,8 @@ const { pool } = require("../db/db-config");
 const adminController = require("../controllers/adminController");
 const authMiddleware = require("../middleware/authMiddleware");
 const upload = require("../middleware/multer");
+const productModel = require("../models/productModel");
+const productController = require("../controllers/productController");
 
 const app = express();
 
@@ -69,17 +71,20 @@ module.exports = router.get(
 );
 
 module.exports = router
-  .get(
-    "/admin/addproduct",
-    authMiddleware,
-    adminController.getAllCategoriesAddProduct
-  )
+  .get("/admin/addproduct", authMiddleware, adminController.getAllCategories)
   .post("/admin/addproduct", authMiddleware, adminController.addProduct);
 
-// module.exports = router.put(
-//   '/admin/updateproduct/:id',
-//   adminController.updateProductByID
-// );
+module.exports = router
+  .get(
+    "/admin/updateproduct/:id",
+    authMiddleware,
+    adminController.getProductById
+  )
+  .post(
+    "/admin/updateproduct/:id",
+    authMiddleware,
+    adminController.updateProductByID
+  );
 
 module.exports = router.post(
   "/admin/deleteproduct/:id",

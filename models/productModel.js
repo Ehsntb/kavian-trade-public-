@@ -95,7 +95,7 @@ module.exports = {
 				JOIN
 				categories AS c ON c.id = p.category_id
       WHERE
-        p.short_link = ?
+        p.id = ?
       GROUP BY
         p.id;`,
         productID
@@ -166,6 +166,7 @@ module.exports = {
       res.status(500).json({ error: "Internal Server Error" });
     }
   },
+
   updateProductById: async (
     title,
     short_description,

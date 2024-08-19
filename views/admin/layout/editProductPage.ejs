@@ -1,0 +1,41 @@
+<%- include('../layout/upindex.ejs') %> <%-
+include('../Product/EditProduct.ejs') %> <%- include('../layout/downindex.ejs')
+%>
+
+<script>
+  $(document).ready(function () {
+    $("#addImage").click(function () {
+      let imageDiv = $("<div>").addClass("row mb-2");
+
+      let imageInputDiv = $("<div>").addClass("col-md-10");
+      let imageInput = $("<input>")
+        .attr({
+          type: "file",
+          name: "gallery_images[]",
+          accept: "image/*",
+        })
+        .addClass("form-control");
+      imageInputDiv.append(imageInput);
+
+      let deleteButtonDiv = $("<div>").addClass("col-md-2");
+      let deleteButton = $("<button>")
+        .addClass("btn btn-danger btn-sm removeImage")
+        .text("X");
+      deleteButton.on("click", function (e) {
+        e.preventDefault();
+        imageDiv.remove();
+      });
+      deleteButtonDiv.append(deleteButton);
+
+      imageDiv.append(imageInputDiv, deleteButtonDiv);
+
+      $("#galleryContainer").append(imageDiv);
+    });
+  });
+</script>
+
+<script>
+  $("#categories").select2({
+    placeholder: "",
+  });
+</script>

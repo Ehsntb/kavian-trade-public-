@@ -47,6 +47,27 @@ module.exports = {
       res.status(500).json({ message: error });
     }
   },
+  getProductById: async (req, res) => {
+    try {
+      const productID = req.params.id;
+      const product = await productModel.getProductById(productID);
+      const categories = await categoryModel.getAllCategories();
+
+      console.log("Product:", product);
+      if (!product) {
+        return res.status(404).render("404");
+      } else {
+        // console.log(product);
+        return res.render("productPage", {
+          product: product,
+          categories: categories,
+        });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: error });
+    }
+  },
   getProductsByCategoryShortLink: async (req, res) => {
     try {
       const categoryshortlink = req.params.categoryshortlink;

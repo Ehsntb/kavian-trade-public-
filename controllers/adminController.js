@@ -67,8 +67,8 @@ module.exports = {
   },
   getProductById: async (req, res) => {
     try {
-      const productID = req.params.productID;
-      const product = await productModel.getProductByShortLink(productID);
+      const productID = req.params.id;
+      const product = await productModel.getProductById(productID);
       const categories = await categoryModel.getAllCategories();
 
       console.log("Product:", product);
@@ -76,7 +76,7 @@ module.exports = {
         return res.status(404).render("404");
       } else {
         // console.log(product);
-        return res.render("productPage", {
+        return res.render("admin/layout/editProductPage", {
           product: product,
           categories: categories,
         });
@@ -136,18 +136,53 @@ module.exports = {
     },
   ],
 
-  updateProductByID: async (req, res) => {
-    try {
-      const { product } = req.body;
-      const newProduct = await productModel.updateProductByID(product);
-      return res.render("...", {
-        products: newProduct,
-      });
-    } catch (err) {
-      console.log(err);
-      res.status(500).json({ message: err });
-    }
-  },
+  updateProductByID: [
+    // upload.fields([
+    //   { name: "main_image", maxCount: 1 },
+    //   { name: "gallery_images[]", maxCount: 100 },
+    // ]),
+    async (req, res) => {
+      try {
+        const productID = req.params.id;
+        const {
+          title,
+          short_description,
+          long_description,
+          short_link,
+          location,
+          category_id,
+        } = req.body;
+        // const mainImage = req.files["main_image"]
+        //   ? req.files["main_image"][0].filename
+        //   : null;
+
+        // Add product to the database
+        const productId = await productModel.updateProductById(
+          productID,
+          title,
+          short_description,
+          long_description,
+          short_link,
+          location,
+          category_id
+        );
+
+        // Add gallery images to the database
+        // const galleryImages = req.files["gallery_images[]"];
+        // if (galleryImages) {
+        //   for (const image of galleryImages) {
+        //     await productModel.addGalleryImage(productId, image.filename, "0");
+        //   }
+        // }
+
+        res.redirect("/admin/products");
+      } catch (err) {
+        console.error(err);
+        console.log(err);
+        res.status(500).send("Server Error");
+      }
+    },
+  ],
 
   deleteProductsById: async (req, res) => {
     try {
@@ -180,7 +215,7 @@ module.exports = {
     }
   },
 
-  getAllCategoriesAddProduct: async (req, res) => {
+  getAllCategories: async (req, res) => {
     try {
       const categories = await categoryModel.getAllCategories();
       console.log("categories:", categories);
