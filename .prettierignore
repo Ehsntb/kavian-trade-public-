@@ -1,0 +1,10 @@
+# Ignore artifacts:
+views/admin/layout/downindex.ejs
+views/admin/layout/upindex.ejs
+
+# Ignore all HTML files:
+**/*.css
+**/.git
+**/.svn
+**/.hg
+**/node_modules
