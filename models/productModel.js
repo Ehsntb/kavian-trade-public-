@@ -87,6 +87,7 @@ module.exports = {
         p.short_link,
         p.location,
         c.title as category,
+        c.id as category_id,
         CONCAT('[', GROUP_CONCAT(CONCAT('{ "image_url": "', pg.image_url, '", "is_main": ', pg.is_main, '}')), ']') AS gallery
         FROM
         products AS p
@@ -108,6 +109,7 @@ module.exports = {
         short_link: row.short_link,
         location: row.location,
         category: row.category,
+        category_id: row.category_id,
         gallery: JSON.parse(row.gallery),
       }))[0];
       return result;

@@ -47,7 +47,7 @@ module.exports = {
       const products = await productModel.getAllProducts();
       const categories = await categoryModel.getAllCategories();
 
-      console.log("Products:", products);
+      // console.log("Products:", products);
 
       if (products.length < 1) {
         return res.render("admin/layout/allProductsPage", {
@@ -152,19 +152,20 @@ module.exports = {
           location,
           category_id,
         } = req.body;
+        console.log(title);
         // const mainImage = req.files["main_image"]
         //   ? req.files["main_image"][0].filename
         //   : null;
 
         // Add product to the database
-        const productId = await productModel.updateProductById(
-          productID,
+        await productModel.updateProductById(
           title,
           short_description,
           long_description,
           short_link,
           location,
-          category_id
+          category_id,
+          productID
         );
 
         // Add gallery images to the database
@@ -177,7 +178,7 @@ module.exports = {
 
         res.redirect("/admin/products");
       } catch (err) {
-        console.error(err);
+        // console.error(err);
         console.log(err);
         res.status(500).send("Server Error");
       }
