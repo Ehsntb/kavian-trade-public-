@@ -49,7 +49,7 @@ module.exports = {
         p.short_link,
         p.location,
         c.title as category,
-        CONCAT('[', GROUP_CONCAT(CONCAT('{ "image_url": "', pg.image_url, '", "is_main": ', pg.is_main, '}')), ']') AS gallery
+        CONCAT('[', GROUP_CONCAT(CONCAT('{ "id": "', pg.id, '", "image_url": "', pg.image_url, '", "is_main": ', pg.is_main, '}')), ']') AS gallery
         FROM
         products AS p
       LEFT JOIN
@@ -88,7 +88,7 @@ module.exports = {
         p.location,
         c.title as category,
         c.id as category_id,
-        CONCAT('[', GROUP_CONCAT(CONCAT('{ "image_url": "', pg.image_url, '", "is_main": ', pg.is_main, '}')), ']') AS gallery
+        CONCAT('[', GROUP_CONCAT(CONCAT('{ "id": "', pg.id, '", "image_url": "', pg.image_url, '", "is_main": ', pg.is_main, '}')), ']') AS gallery
         FROM
         products AS p
       LEFT JOIN

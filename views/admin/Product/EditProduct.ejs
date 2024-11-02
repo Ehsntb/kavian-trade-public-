@@ -16,6 +16,7 @@
             method="POST"
             action="/admin/updateproduct/<%= product.id %>"
             id="editProductFor"
+            enctype="multipart/form-data"
           >
             <div class="row">
               <div class="col-lg-4">
@@ -40,8 +41,7 @@
                   name="short_description"
                   required
                 >
-<%= product.short_description %>
-              </textarea
+<%= product.short_description %></textarea
                 >
               </div>
 
@@ -49,15 +49,23 @@
                 <label for="main_image" class="form-label"
                   >آپلود تصویر شاخص *</label
                 >
+                <div class="mb-3">
+                  <!-- Display the current main image if available -->
+                  <% if (product.gallery.find(g => g.is_main === 1)) { %>
+                  <img
+                    src="../../images/productsImages/<%= product.gallery.find(g => g.is_main === 1).image_url %>"
+                    alt="Current Main Image"
+                    class="img-fluid mb-2"
+                    width="150"
+                  />
+                  <% } %>
+                </div>
                 <input
                   id="main_image"
                   type="file"
                   class="form-control"
                   name="main_image"
                   accept="image/*"
-                  multiple="false"
-                  disabled
-                  required
                 />
               </div>
 
@@ -71,13 +79,47 @@
                   name="long_description"
                   required
                 >
-<%= product.long_description %>
-</textarea
+<%= product.long_description %></textarea
                 >
               </div>
 
               <div class="col-lg-12">
                 <label class="form-label">آپلود تصاویر گالری</label>
+
+                <!-- Display existing gallery images -->
+                <div id="existingGalleryImages" class="mb-3">
+                  <% product.gallery.forEach((image, index) => { if
+                  (!image.is_main) { %>
+                  <div class="row mb-2">
+                    <div class="col-md-10">
+                      <img
+                        src="../../images/productsImages/<%= image.image_url %>"
+                        alt="Gallery Image <%= index + 1 %>"
+                        class="img-fluid mb-2"
+                        width="150"
+                      />
+                    </div>
+                    <div class="col-md-2">
+                      <form
+                        action="/admin/deleteimage/<%= image.id %>"
+                        method="POST"
+                        id="deleteByIdForm"
+                      >
+                        <button
+                          type="submit"
+                          class="btn btn-danger btn-sm removeImage"
+                          data-image-url="<%= image.image_url %>"
+                          data-id="<%= image.id %>"
+                        >
+                          حذف
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                  <% } }) %>
+                </div>
+
+                <!-- Section to add new gallery images -->
                 <div id="galleryContainer">
                   <div class="row mb-2">
                     <div class="col-md-10">
@@ -86,26 +128,16 @@
                         class="form-control"
                         name="gallery_images[]"
                         accept="image/*"
-                        multiple="false"
-                        disabled
+                        multiple
                       />
-                    </div>
-                    <div class="col-md-2">
-                      <button
-                        type="button"
-                        class="btn btn-danger btn-sm removeImage"
-                        disabled
-                      >
-                        X
-                      </button>
                     </div>
                   </div>
                 </div>
+
                 <button
                   type="button"
                   class="btn btn-secondary mt-2"
                   id="addImage"
-                  disabled
                 >
                   اضافه کردن تصویر
                 </button>
@@ -160,12 +192,6 @@
                 </select>
               </div>
 
-              <hr />
-
-              <hr />
-
-              <hr />
-
               <div class="col-lg-12 mt-3">
                 <button type="submit" class="btn btn-primary">
                   ثبت تغییرات محصول
@@ -179,5 +205,37 @@
     </div>
   </div>
 </div>
-
 <!-- Container-fluid Ends -->
+
+<script>
+  // JavaScript to handle adding more gallery image inputs
+  document.getElementById("addImage").addEventListener("click", function () {
+    const galleryContainer = document.getElementById("galleryContainer");
+    const newImageRow = document.createElement("div");
+    newImageRow.className = "row mb-2";
+    newImageRow.innerHTML = `
+      <div class="col-md-10">
+        <input type="file" class="form-control" name="gallery_images[]" accept="image/*">
+      </div>
+      <div class="col-md-2">
+        <button type="button" class="btn btn-danger btn-sm removeImage">X</button>
+      </div>`;
+    galleryContainer.appendChild(newImageRow);
+
+    // Add event listener to remove button
+    newImageRow
+      .querySelector(".removeImage")
+      .addEventListener("click", function () {
+        newImageRow.remove();
+      });
+  });
+
+  // Remove existing gallery images (this could trigger a backend deletion)
+  // document.querySelectorAll(".removeImage").forEach((button) => {
+  //   button.addEventListener("click", function () {
+  //     const imageUrl = this.getAttribute("data-image-url");
+  //     // Optionally send a request to remove this image from the server
+  //     this.closest(".row").remove();
+  //   });
+  // });
+</script>

@@ -152,10 +152,17 @@ module.exports = {
           location,
           category_id,
         } = req.body;
-        console.log(title);
+
         // const mainImage = req.files["main_image"]
         //   ? req.files["main_image"][0].filename
         //   : null;
+
+        // Find product
+        let product = await productModel.getProductById(productID);
+
+        if (!product) {
+          return res.status(404).send("Product not found");
+        }
 
         // Add product to the database
         await productModel.updateProductById(

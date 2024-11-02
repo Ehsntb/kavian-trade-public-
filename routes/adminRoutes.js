@@ -8,6 +8,7 @@ const authMiddleware = require("../middleware/authMiddleware");
 const upload = require("../middleware/multer");
 const productModel = require("../models/productModel");
 const productController = require("../controllers/productController");
+const imageController = require("../controllers/imageController");
 
 const app = express();
 
@@ -85,6 +86,12 @@ module.exports = router
     authMiddleware,
     adminController.updateProductByID
   );
+
+module.exports = router.post(
+  "/admin/deleteimage/:id",
+  authMiddleware,
+  imageController.deleteImageById
+);
 
 module.exports = router.post(
   "/admin/deleteproduct/:id",
