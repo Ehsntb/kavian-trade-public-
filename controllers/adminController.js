@@ -109,7 +109,7 @@ module.exports = {
 
       try {
         // Add product to the database
-        const productId = await productModel.addProduct(
+        const product = await productModel.addProduct(
           title,
           short_description,
           long_description,
@@ -123,7 +123,11 @@ module.exports = {
         const galleryImages = req.files["gallery_images[]"];
         if (galleryImages) {
           for (const image of galleryImages) {
-            await productModel.addGalleryImage(productId, image.filename, "0");
+            await productModel.addGalleryImage(
+              product.productID,
+              image.filename,
+              "0"
+            );
           }
         }
 
@@ -137,10 +141,10 @@ module.exports = {
   ],
 
   updateProductByID: [
-    // upload.fields([
-    //   { name: "main_image", maxCount: 1 },
-    //   { name: "gallery_images[]", maxCount: 100 },
-    // ]),
+    upload.fields([
+      { name: "main_image", maxCount: 1 },
+      { name: "gallery_images[]", maxCount: 100 },
+    ]),
     async (req, res) => {
       try {
         const productID = req.params.id;
@@ -153,9 +157,11 @@ module.exports = {
           category_id,
         } = req.body;
 
-        // const mainImage = req.files["main_image"]
-        //   ? req.files["main_image"][0].filename
-        //   : null;
+        const mainImage = req.files["main_image"]
+          ? req.files["main_image"][0].filename
+          : null;
+
+        console.log(mainImage);
 
         // Find product
         let product = await productModel.getProductById(productID);
@@ -169,6 +175,7 @@ module.exports = {
           title,
           short_description,
           long_description,
+          mainImage,
           short_link,
           location,
           category_id,
@@ -176,12 +183,12 @@ module.exports = {
         );
 
         // Add gallery images to the database
-        // const galleryImages = req.files["gallery_images[]"];
-        // if (galleryImages) {
-        //   for (const image of galleryImages) {
-        //     await productModel.addGalleryImage(productId, image.filename, "0");
-        //   }
-        // }
+        const galleryImages = req.files["gallery_images[]"];
+        if (galleryImages) {
+          for (const image of galleryImages) {
+            await productModel.addGalleryImage(productID, image.filename, "0");
+          }
+        }
 
         res.redirect("/admin/products");
       } catch (err) {

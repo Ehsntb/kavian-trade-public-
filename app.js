@@ -7,18 +7,10 @@ const http = require("http");
 const ejs = require("ejs");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
-const socketIO = require("socket.io");
 const multer = require("multer");
-
-const socketMiddleware = require("./middleware/socketMiddleware");
 
 // Let's refer to Express as app
 const app = express();
-
-const server = http.createServer(app); // Create a server instance with Express
-
-// Initialize Socket.io with the HTTP server
-const io = socketIO(server);
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -35,8 +27,6 @@ app.use(cookieParser());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
-socketMiddleware(io);
 
 // Route Imports
 const adminRouter = require("./routes/adminRoutes");

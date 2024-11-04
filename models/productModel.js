@@ -174,6 +174,7 @@ module.exports = {
     title,
     short_description,
     long_description,
+    mainImage,
     short_link,
     location,
     category_id,
@@ -203,6 +204,16 @@ module.exports = {
           productID,
         ]
       );
+
+      if (mainImage) {
+        await pool
+          .promise()
+          .query(
+            "UPDATE product_gallery SET image_url = ? WHERE product_id = ? AND is_main = ?",
+            [mainImage, productID, "1"]
+          );
+      }
+
       console.log(result);
       return result;
     } catch (err) {
@@ -265,7 +276,7 @@ module.exports = {
         .promise()
         .query(
           "INSERT INTO product_gallery (product_id, image_url, is_main) VALUES (?, ?, ?)",
-          [product_id.productID, image_url, is_main]
+          [product_id, image_url, is_main]
         );
     } catch (err) {
       console.error(err);

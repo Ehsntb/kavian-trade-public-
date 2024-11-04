@@ -1,14 +1,16 @@
-const { randomInt } = require("crypto");
 const multer = require("multer");
 const path = require("path");
+const short = require("short-uuid");
+const imagesDir = path.join(__dirname, "../views/images/productsImages/test");
 
 // Set up storage engine
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "/views/images/productsImages");
+    cb(null, imagesDir);
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname) + randomInt);
+    const extension = path.extname(file.originalname).toLowerCase();
+    cb(null, short.uuid() + extension);
   },
 });
 
